@@ -1,17 +1,26 @@
 ##CreativeJavaService
 
-A simple proof of concept Java microservice. The ambition is to use Best Practices like Clean Code and Design Patterns wherever possible. 
-The service lists process tasks on the system in question and is built using Dropwizard and Maven build manager.
+A very simple proof of concept Java microservice. The ambition is to use Best Practices like Clean Code and Design Patterns wherever possible. 
+The service simply lists process tasks on the system in question. It is built using Dropwizard and Maven build manager.
 The service assumes it is run on a system where the "ps -e" terminal command is valid. Concretely Linux/Unix and Windows 10 works fine.
 
+There are of course many Java frameworks for developing ops-friendly, RESTful web services. 
+I here selected Dropwizard for it's elegance and simplicity.
+
 ###Building
-* Install Maven if not already present on your system
+* Install Maven if not already present on your system (if you have an IDE like IntelliJ you're all set).
 * Build it with mvn install.
 
 ###Running
 * You run it with java -jar target/tasklist-service-1.0-SNAPSHOT.jar server tasklist-service.yml.
 * You check the service output on http://localhost:8080/task-list
 
+###Possible improvements
+The possible improvements to the application are of course many. The most relevant can easily be the following.
+
+* Implement unit tests. [must have]
+* Implement support for more platforms and commands [nice to have]
+        
 ###References
 * Dropwizard - @See http://www.dropwizard.io/
 * Maven build manager - @See https://maven.apache.org/
