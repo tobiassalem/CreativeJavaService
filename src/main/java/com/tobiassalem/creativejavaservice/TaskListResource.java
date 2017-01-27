@@ -24,9 +24,9 @@ import java.util.concurrent.atomic.AtomicLong;
 @Path("/task-list")
 @Produces(MediaType.APPLICATION_JSON)
 public class TaskListResource {
+    private static final int FIRST_LINE_TO_CONTAIN_DATA = 1;
     private final int maxLength;
     private final AtomicLong counter;
-    //SLF4J is provided with dropwizard. Logback is also provided
     Logger log = LoggerFactory.getLogger(TaskListResource.class);
 
     public TaskListResource(int maxLength) {
@@ -41,13 +41,11 @@ public class TaskListResource {
         String query = contains.or("");
 
         try {
-            //Get processes from the terminal
-            Process p = getProcessesFromTerminal(); //Runtime.getRuntime().exec("ps -e");
+            Process p = getProcessesFromTerminal(); 
             BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            //Dropwizard comes with google guava
             List<String> lines = CharStreams.readLines(input);
-            //First line contains no data so it is omitted
-            for (int i = 1; i < lines.size(); i++) {
+
+            for (int i = FIRST_LINE_TO_CONTAIN_DATA; i < lines.size(); i++) {
                 String line = lines.get(i);
                 if (isContentToBeIncluded(line, query)) {
                     tasks.add(buildTask(line, maxLength));
@@ -67,12 +65,12 @@ public class TaskListResource {
     /**
      * Returns true if the content in line is to be included in the task list.
      * I.e. filter the processes depending on the ?contains= from the url
-     * @param line - the line content to check
+     * @param content - the line content to check
      * @param query - the query to search for
      * @return true if the line content is to be included, false otherwise
      */
-    private boolean isContentToBeIncluded(final String line, final String query) {
-        return line.contains(query);
+    private boolean isContentToBeIncluded(final String content, final String query) {
+        return content.contains(query);
     }
 
 
