@@ -9,20 +9,20 @@ I here selected Dropwizard for it's elegance and simplicity.
 
 ###Building
 * Install Maven if not already present on your system (if you have an IDE like IntelliJ you're all set).
-* Build it with mvn install.
+* Build it with mvn install (if you have IntelliJ, simply run lifecycle goal "install" in the Maven Projects tool window).
 
 ###Running
 * You run it with java -jar target/tasklist-service-1.0-SNAPSHOT.jar server tasklist-service.yml.
 * You check the service output on http://localhost:8080/task-list
 * If you want to filter the process task list you add the query parameter "contains". For example:
     * http://localhost:8080/task-list?contains=bin  to only get tasks in the /bin folder.
-    * http://localhost:8080/task-list?contains=frodo to only get tasks with frodo in the name (probably get an empty list).
+    * http://localhost:8080/task-list?contains=frodo to only get tasks with frodo in the content (probably an empty list).
 
 ###Possible improvements
 The possible improvements to the application are of course many. The most relevant can easily be the following.
 
-* Implement unit tests. [must have]
-* Implement support for more platforms and commands [nice to have]
+* Implement unit tests. [done]
+* Implement support for more platforms and commands. [nice to have]
         
 ###References
 * Dropwizard - @See http://www.dropwizard.io/
