@@ -1,5 +1,6 @@
 package com.tobiassalem.creativejavaservice;
 
+import com.tobiassalem.creativejavaservice.util.AppHealthCheck;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -25,6 +26,9 @@ public class TaskListServiceApplication extends Application<TaskListServiceConfi
 
     @Override
     public void run(TaskListServiceConfiguration configuration, Environment environment) {
+        // Application health check
+        environment.healthChecks().register("APIHealthCheck", new AppHealthCheck());
+
         // Register resource now
         final TaskListResource resource = new TaskListResource(configuration.getMaxLength());
         environment.jersey().register(resource);

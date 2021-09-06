@@ -3,6 +3,7 @@ package com.tobiassalem.creativejavaservice;
 import com.google.common.base.Optional;
 import com.codahale.metrics.annotation.Timed;
 import com.google.common.io.CharStreams;
+import com.tobiassalem.creativejavaservice.util.OsUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,7 +38,7 @@ public class TaskListResource {
     @GET
     @Timed
     public List<Task> listTasks(@QueryParam("contains") Optional<String> contains) {
-        List<Task> tasks = new ArrayList<Task>();
+        List<Task> tasks = new ArrayList<>();
         String query = contains.or("");
 
         try {
@@ -59,7 +60,7 @@ public class TaskListResource {
     }
 
     private Process getProcessesFromTerminal() throws IOException {
-        return Runtime.getRuntime().exec("ps -e");
+        return Runtime.getRuntime().exec(OsUtil.getTaskListCommandForOs());
     }
 
     /**
